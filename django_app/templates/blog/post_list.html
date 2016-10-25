@@ -3,6 +3,9 @@
 
 
 {% block content %}
+<a href="{% url 'blog:post_new' %}" class="btn btn-default btn-primary">
+  <span class="glyphicon glyphicon-plus"></span> New post
+</a>
 {% for post in post_list %}
 <div>
   <h4><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
