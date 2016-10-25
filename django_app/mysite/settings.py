@@ -9,16 +9,19 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
-
+import json
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# os.path.join을 이용해서 해당 폴더의 경로를 지정해봅시다
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
-
+# 설정파일 폴더
+CONF_DIR = os.path.join(BASE_DIR, '.conf')
+# json설정파일의 내용 불러오기
+config_file = open(os.path.join(CONF_DIR, 'settings_debug.json'))
+config = json.loads(config_file.read())
+config_file.close()
 
 # Static files
 STATICFILES_DIRS = [

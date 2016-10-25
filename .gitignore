@@ -1,3 +1,6 @@
+#json 숨김파일
+.conf
+
 *.sqlite3
 __dev*/
 .idea/
