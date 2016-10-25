@@ -35,12 +35,16 @@ AUTHENTICATION_BACKENDS = [
     'member.backends.FacebookBackend',
 ]
 # Email
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'fastcampus.2016@gmail.com'
-EMAIL_HOST_PASSWORD = 'fastcampus'
-EMAIL_USE_TLS = True
+EMAIL_HOST = config['email']['EMAIL_HOST']
+EMAIL_PORT = config['email']['EMAIL_PORT']
+EMAIL_HOST_USER = config['email']['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = config['email']['EMAIL_HOST_PASSWORD']
+EMAIL_USE_TLS = config['email']['EMAIL_USE_TLS']
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Facebook
+FACEBOOK_APP_ID = config['facebook']['FACEBOOK_APP_ID']
+FACEBOOK_SECRET_CODE = config['facebook']['FACEBOOK_SECRET_CODE']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -53,9 +57,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Facebook
-FACEBOOK_APP_ID = '721924057956431'
-FACEBOOK_SECRET_CODE = '58157e4e283b02691b24ad643ce0d986'
+
 
 # Application definition
 
@@ -139,9 +141,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
