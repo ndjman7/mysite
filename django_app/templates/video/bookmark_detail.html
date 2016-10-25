@@ -1,0 +1,7 @@
+{% extends 'common/base.html' %}
+{% block content %}
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.youtube_id }}" frameborder="0" allowfullscreen></iframe>
+<a href="{%url 'video:bookmark_list' %}" class="btn btn-default">뒤로</a>
+
+{% endblock content%}

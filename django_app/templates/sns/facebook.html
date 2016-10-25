@@ -1,0 +1,21 @@
+{% block content %}
+<a href="{% url 'sns:index'%}" class="btn btn-default">뒤로</a>
+{{feed_count}}
+<!--{% for data in dict_feed_info.data %}-->
+    <!--{% if data.comments %}-->
+    <!--<h1>{{data.name}}</h1>-->
+    <!--<h1>{{data.message}}</h1>-->
+        <!--{% for comment in data.comments.data%}-->
+            <!--<img src="{{comment.from.picture.data.url}}" alt="">-->
+            <!--<p>{{comment.from.name}} : {{comment.message}}</p>-->
+            <!--{% if comment.comments %}-->
+                <!--<p>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</p>-->
+                <!--{% for d_comment in comment.comments.data %}-->
+                    <!--<span>-></span><img src="{{d_comment.from.picture.data.url}}" alt="">-->
+                    <!--<span>-></span><p>{{comment.from.name}} : {{d_comment.message}}</p>-->
+                <!--{% endfor%}-->
+            <!--{% endif %}-->
+        <!--{% endfor %}-->
+    <!--{% endif %}-->
+<!--{% endfor %}-->
+{% endblock content %}
