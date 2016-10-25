@@ -2,5 +2,13 @@
 
 {% block content %}
 <a href="{% url 'photo:album_list' %}" class="btn btn-default btn-primary">Back</a>
-    <p>album detail page</p>
+<h2>{{ album.title }}</h2>
+<h4>{{ album.description }}</h4>
+    {% for photo in album.photo_set.all %}
+        <img src="/media/{{ photo.img }}" alt="" width="80" height="120">
+        <h4>{{ photo.title }}</h4>
+        <p>{{ photo.description }}</p>
+        <p>올린이: {{ photo.owner }}</p>
+
+    {% endfor %}
 {% endblock %}
