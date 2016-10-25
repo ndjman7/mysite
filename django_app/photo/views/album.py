@@ -4,6 +4,7 @@ from photo.forms import AlbumModelForm
 __all__ = [
     'album_list',
     'album_new',
+    'album_detail',
 ]
 
 
@@ -23,4 +24,9 @@ def album_new(request):
     else:
         form = AlbumModelForm()
         return render(request, 'photo/album_edit.html', {'form': form})
+
+
+def album_detail(request, pk):
+    album = Album.objects.get(pk=pk)
+    return render(request, 'photo/album_detail.html', {'album': album})
 

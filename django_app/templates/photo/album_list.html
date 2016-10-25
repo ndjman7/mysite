@@ -3,7 +3,7 @@
 <a href="{% url 'photo:album_new' %}" class="btn btn-default btn-primary">New album</a>
     {% for album in albums %}
 <div>
-  <h4><a href="">{{ album.title }}</a></h4>
+  <h4><a href="{% url 'photo:album_detail' pk=album.pk %}">{{ album.title }}</a></h4>
   <p>{{ album.description|linebreaksbr }}</p>
   <p>만든이: {{ album.owner }}</p>
 </div>
