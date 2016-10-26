@@ -6,6 +6,10 @@
 <h2>{{ album.title }}</h2>
 <h4>{{ album.description }}</h4>
     {% for photo in album.photo_set.all %}
+    <div>
+        <a href="" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span>like</a>
+        <a href="" class="btn btn-default btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span>dislike</a>
+    </div>
         <img src="/media/{{ photo.img }}" alt="" width="80" height="120">
         <h4>{{ photo.title }}</h4>
         <p>{{ photo.description }}</p>
