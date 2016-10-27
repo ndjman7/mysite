@@ -4,6 +4,7 @@ from photo.models import Album, Photo, PhotoLike, PhotoDisLike
 __all__ = [
     'photo_new',
     'photo_like',
+    'photo_dislike',
 ]
 
 
@@ -40,4 +41,14 @@ def photo_like(request, photo_pk):
         PhotoLike.objects.get(photo=photo, user=user).delete()
     else:
         PhotoLike.objects.create(photo=photo, user=user)
+    return redirect('photo:album_detail', pk=photo.album.id)
+
+
+def photo_dislike(request, photo_pk):
+    user = request.user
+    photo = Photo.objects.get(pk=photo_pk)
+    if PhotoDisLike.objects.filter(photo=photo, user=user).exists():
+        PhotoDisLike.objects.get(photo=photo, user=user).delete()
+    else:
+        PhotoDisLike.objects.create(photo=photo, user=user)
     return redirect('photo:album_detail', pk=photo.album.id)
