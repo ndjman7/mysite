@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from photo.forms import PhotoForm
-from photo.models import Album
+from photo.models import Album, Photo, PhotoLike, PhotoDisLike
 __all__ = [
     'photo_new',
+    'photo_like',
 ]
 
 
@@ -30,3 +31,13 @@ def photo_new(request, album_pk):
         form = PhotoForm()
         context['form'] = form
     return render(request, 'photo/photo_edit.html', context)
+
+
+def photo_like(request, photo_pk):
+    user = request.user
+    photo = Photo.objects.get(pk=photo_pk)
+    if PhotoLike.objects.filter(photo=photo, user=user).exists():
+        PhotoLike.objects.get(photo=photo, user=user).delete()
+    else:
+        PhotoLike.objects.create(photo=photo, user=user)
+    return redirect('photo:album_detail', pk=photo.album.id)

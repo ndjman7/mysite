@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from photo.models import Album
+from photo.models import Album , PhotoLike , Photo
 from photo.forms import AlbumModelForm
 __all__ = [
     'album_list',
@@ -27,6 +27,9 @@ def album_new(request):
 
 
 def album_detail(request, pk):
+    context = {}
     album = Album.objects.get(pk=pk)
-    return render(request, 'photo/album_detail.html', {'album': album})
+    context['album'] = album
+
+    return render(request, 'photo/album_detail.html', context)
 

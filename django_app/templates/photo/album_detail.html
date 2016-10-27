@@ -7,7 +7,9 @@
 <h4>{{ album.description }}</h4>
     {% for photo in album.photo_set.all %}
     <div>
-        <a href="" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span>like</a>
+        <span>{{photo.like_users.all}}</span>
+        <span>{{photo.like_users.count}}</span>
+        <a href="{% url 'photo:photo_like' photo_pk=photo.id %}" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span>like</a>
         <a href="" class="btn btn-default btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span>dislike</a>
     </div>
         <img src="/media/{{ photo.img }}" alt="" width="80" height="120">
