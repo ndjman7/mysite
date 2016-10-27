@@ -6,17 +6,17 @@
 <h2>{{ album.title }}</h2>
 <h4>{{ album.description }}</h4>
     {% for photo in album.photo_set.all %}
-    <div>
-        <span>{{photo.like_users.all}}</span>
-        <span>{{photo.like_users.count}}</span>
-        <a href="{% url 'photo:photo_like' photo_pk=photo.id %}" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span>like</a>
-        <a href="{% url 'photo:photo_dislike' photo_pk=photo.id %}" class="btn btn-default btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span>dislike</a>
-        <span>{{photo.dislike_user.count}}</span>
-    </div>
+
         <img src="/media/{{ photo.img }}" alt="" width="80" height="120">
         <h4>{{ photo.title }}</h4>
         <p>{{ photo.description }}</p>
         <p>올린이: {{ photo.owner }}</p>
+    <div>
+        <a href="{% url 'photo:photo_like' photo_pk=photo.id %}" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span>like</a>
+        <span>{{photo.like_users.count}} 명</span>
+        <a href="{% url 'photo:photo_dislike' photo_pk=photo.id %}" class="btn btn-default btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span>dislike</a>
+        <span>{{photo.dislike_user.count}} 명</span>
+    </div>
 
     {% endfor %}
 {% endblock %}
