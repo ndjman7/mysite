@@ -3,8 +3,7 @@ from photo.forms import PhotoForm
 from photo.models import Album, Photo, PhotoLike, PhotoDisLike
 __all__ = [
     'photo_new',
-    'photo_like',
-    'photo_dislike',
+    'photo_like_dislike'
 ]
 
 
@@ -34,21 +33,19 @@ def photo_new(request, album_pk):
     return render(request, 'photo/photo_edit.html', context)
 
 
-def photo_like(request, photo_pk):
-    user = request.user
-    photo = Photo.objects.get(pk=photo_pk)
-    if PhotoLike.objects.filter(photo=photo, user=user).exists():
-        PhotoLike.objects.get(photo=photo, user=user).delete()
-    else:
-        PhotoLike.objects.create(photo=photo, user=user)
-    return redirect('photo:album_detail', pk=photo.album.id)
 
 
-def photo_dislike(request, photo_pk):
-    user = request.user
+def photo_like_dislike(request, photo_pk, user_like='like'):
+
     photo = Photo.objects.get(pk=photo_pk)
-    if PhotoDisLike.objects.filter(photo=photo, user=user).exists():
-        PhotoDisLike.objects.get(photo=photo, user=user).delete()
+    choice_photo = PhotoLike if user_like == 'like' else PhotoDisLike
+    opposite_photo = PhotoDisLike if user_like == 'like' else PhotoLike
+
+    like_exist = choice_photo.objects.filter(user=request.user, photo=photo)
+    if like_exist.exists():
+        like_exist.delete()
     else:
-        PhotoDisLike.objects.create(photo=photo, user=user)
-    return redirect('photo:album_detail', pk=photo.album.id)
+        choice_photo.objects.create(user=request.user, photo=photo)
+        opposite_photo.objects.filter(user=request.user, photo=photo).delete()
+
+    return redirect('photo:album_detail', pk=photo.album.pk)

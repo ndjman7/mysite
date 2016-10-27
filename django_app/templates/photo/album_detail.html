@@ -7,14 +7,18 @@
 <h4>{{ album.description }}</h4>
     {% for photo in album.photo_set.all %}
 
-        <img src="/media/{{ photo.img }}" alt="" width="80" height="120">
+        <img src="{{ photo.img.url }}" alt="" width="80" height="120">
         <h4>{{ photo.title }}</h4>
         <p>{{ photo.description }}</p>
         <p>올린이: {{ photo.owner }}</p>
     <div>
-        <a href="{% url 'photo:photo_like' photo_pk=photo.id %}" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span>like</a>
+        <form action="{% url 'photo:photo_like_dislike' photo_pk=photo.id user_like='like' %}" method="POST">{% csrf_token %}
+             <button class="btn btn-sm btn-primary" type="submit"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+        </form>
         <span>{{photo.like_users.count}} 명</span>
-        <a href="{% url 'photo:photo_dislike' photo_pk=photo.id %}" class="btn btn-default btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span>dislike</a>
+        <form action="{% url 'photo:photo_like_dislike' photo_pk=photo.id user_like='dislike' %}" method="POST">{% csrf_token %}
+            <button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+        </form>
         <span>{{photo.dislike_user.count}} 명</span>
     </div>
 
