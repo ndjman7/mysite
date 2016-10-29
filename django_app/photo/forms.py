@@ -29,3 +29,4 @@ class PhotoForm(forms.Form):
     img = forms.ImageField(
         widget=forms.FileInput()
     )
+

@@ -39,17 +39,17 @@ class Photo(BaseModel):
 
     def make_thumbnail(self):
         from PIL import Image, ImageOps
-        #파일을 만들기 싫어서 파일 인 척 하는 것
+        #파일을 만들기 싫어서 파일인 척 하는 것
         from io import BytesIO
         from django.core.files.base import ContentFile
-        #로컬이아닌다른스테이지를가져올수있도록해주는것
+        #로컬이 아닌 다른 스테이지를 가져올 수 있도록 해주는 것
         from django.core.files.storage import default_storage
         import os
         size = (300, 300)
         f = default_storage.open(self.img)
         image = Image.open(f)
         ftype = image.format
-        image = ImageOps.fit(image, size, Image.ANTIALIAS) #안티앨리어스는사진의계단현상을없애준다.
+        image = ImageOps.fit(image, size, Image.ANTIALIAS) #안티앨리어스는 사진의 계단 현상을 없애준다.
 
         path, ext = os.path.splitext(self.img.name)
         name = os.path.basename(path)
@@ -59,7 +59,6 @@ class Photo(BaseModel):
         temp_file = BytesIO()
         image.save(temp_file, ftype)
         temp_file.seek(0)
-
 
         content_file = ContentFile(temp_file.read())
         self.img_thumbnail.save(thumbnail_name, content_file)
