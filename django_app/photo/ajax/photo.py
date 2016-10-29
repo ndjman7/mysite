@@ -24,10 +24,12 @@ def photo_like(request, photo_pk, like_type='like'):
         user=request.user,
         photo=photo
     )
+
+    is_delete = False
     # 요청한 유저가 이미 좋아요(또는 싫어요)를 했는가?
     if user_like_exist.exists():
         user_like_exist.delete()
-        msg = 'delete'
+        is_delete = True
     # 이미 누르지 않은 경우, 좋아요 처리를 해준다
     else:
         like_model.objects.create(
@@ -40,7 +42,6 @@ def photo_like(request, photo_pk, like_type='like'):
             user=request.user,
             photo=photo
         ).delete()
-        msg = 'created'
 
     ret = {
         'like_count': photo.like_users.count(),
@@ -48,9 +49,10 @@ def photo_like(request, photo_pk, like_type='like'):
         'user_like': False,
         'user_dislike': False,
     }
+    if not is_delete:
+        ret['user_like'] = True if like_type == 'like' else False
+        ret['user_dislike'] = True if like_type != 'like' else False
 
-    ret['user_like'] = True if like_type == 'like' else False
-    ret['user_dislike'] = True if like_type != 'like' else False
 
     #content_type 어떤 리퀘스트에 대해서 온 요청에 대해 타입을 정할 수 있다.
     return HttpResponse(json.dumps(ret), content_type='application/json')

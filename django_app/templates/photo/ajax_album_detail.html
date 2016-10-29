@@ -7,32 +7,38 @@
 <a href="{% url 'photo:album_list' %}" class="btn btn-default btn-primary">Back</a>
 <h2>{{ album.title }}</h2>
 <h4>{{ album.description }}</h4>
+    <div>
     {% for photo in album.photo_set.all %}
 
-        <img src="{{ photo.img.url }}" alt="" width="80" height="120">
-        <h4>{{ photo.title }}</h4>
-        <p>{{ photo.description }}</p>
-        <p>올린이: {{ photo.owner }}</p>
-    <div>
-        <div class="like-container">
-            <button onclick="photolike({{ photo.pk }}, 'like')" class="btn label label-default">
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="{{ photo.img_thumbnail.url }}" alt="">
+          <div class="caption">
+            <h3>{{ photo.title }}</h3>
+            <p>{{ photo.description }}</p>
+            <p>올린이: {{ photo.owner }}</p>
+              <div class="like-container">
+                <button onclick="photolike({{ photo.pk }}, 'like')" id="btn-photo-{{ photo.id }}-like" class="btn label label-default">
                 <span class="glyphicon glyphicon-thumbs-up"></span>
                 <span id="photo-{{ photo.pk }}-like-count">{{ photo.like_users.count }}</span>
-            </button>
+              </button>
+              </div>
 
+              <div class="like-container">
+                <button onclick="photolike({{ photo.pk }}, 'dislike')" id="btn-photo-{{ photo.id }}-dislike" class="btn label label-default">
+                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                    <span id="photo-{{ photo.pk }}-dislike-count">{{ photo.like_users.count }}</span>
+                </button>
+              </div>
+          </div>
         </div>
-
-        <div class="like-container">
-            <button onclick="photolike({{ photo.pk }}, 'dislike')" class="btn label label-default">
-                <span class="glyphicon glyphicon-thumbs-down"></span>
-                <span id="photo-{{ photo.pk }}-dislike-count">{{ photo.like_users.count }}</span>
-            </button>
-
-        </div>
-
+      </div>
     </div>
 
+
+
     {% endfor %}
+    </div>
 {% endblock %}
 
 {% block script %}
