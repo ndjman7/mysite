@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from photo.ajax.photo import photo_like
 
 
 urlpatterns = [
@@ -9,4 +10,6 @@ urlpatterns = [
 
     url(r'^album/(?P<album_pk>[0-9]+)/new/$', views.photo_new, name='photo_new'),
     url(r'^photo/(?P<photo_pk>[0-9]+)/(?P<user_like>\w+)', views.photo_like_dislike, name='photo_like_dislike'),
+
+    url(r'^ajax/photo/(?P<photo_pk>[0-9]+)/(?P<like_type>\w+)', photo_like, name='ajax_photo_like'),
 ]

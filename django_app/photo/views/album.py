@@ -30,6 +30,8 @@ def album_detail(request, pk):
     context = {}
     album = Album.objects.get(pk=pk)
     context['album'] = album
+    #template_file = 'photo/album_detail.html'
+    template_file = 'photo/ajax_album_detail.html'
 
-    return render(request, 'photo/album_detail.html', context)
+    return render(request, template_file, context)
 
