@@ -1,16 +1,4 @@
 from django import forms
-from .models import Album
-
-
-class AlbumModelForm(forms.ModelForm):
-    class Meta:
-        model = Album
-        fields = ('title', 'description', )
-
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.TextInput(attrs={'class': 'form-control'}),
-        }
 
 
 class PhotoForm(forms.Form):
@@ -29,4 +17,3 @@ class PhotoForm(forms.Form):
     img = forms.ImageField(
         widget=forms.FileInput()
     )
-
