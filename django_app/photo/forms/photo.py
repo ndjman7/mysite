@@ -15,5 +15,28 @@ class PhotoForm(forms.Form):
         )
     )
     img = forms.ImageField(
-        widget=forms.FileInput()
+        widget=forms.FileInput(),
+        required=True
+    )
+
+
+class PhotoMultiForm(forms.Form):
+    title = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={'class': 'form-control',}
+        )
+    )
+    description = forms.CharField(
+        max_length=80,
+        widget=forms.TextInput(
+            attrs={'class': 'form-control',}
+        )
+    )
+    img = forms.ImageField(
+        widget=forms.ClearableFileInput(
+            attrs={
+                'multiple': True
+            }
+        )
     )
